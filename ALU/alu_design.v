@@ -3,6 +3,7 @@ module ALU (
     input wire [31:0] operandB,  // Second operand
     input wire [3:0] aluOp,      // 4-bit opcode for operation selection
     input wire shiftAmount,      // Shift amount (0 or 1)
+    input wire enable,
     output wire [31:0] res,   // ALU result
     output wire zeroFlag,        // Zero flag
     output wire carryFlag        // Carry flag
@@ -42,6 +43,6 @@ end
     
     // Carry flag: Set if there's a carry-out in arithmetic operations
     assign carryFlag = (aluOp == ADD_OP && (result < operandA || result < operandB)) ? 1'b1 : 1'b0;
-    assign res = result;
+    assign res = enable? result:32'bz;
 
 endmodule

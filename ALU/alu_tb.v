@@ -5,7 +5,7 @@ module ALU_Testbench;
     reg [31:0] operandB;
     reg [3:0] aluOp;
     reg shiftAmount;
-    
+    reg enable;
     wire [31:0] result;
     wire zeroFlag;
     wire carryFlag;
@@ -15,6 +15,7 @@ module ALU_Testbench;
         .operandA(operandA),
         .operandB(operandB),
         .aluOp(aluOp),
+        .enable(enable),
         .shiftAmount(shiftAmount),
         .res(result),
         .zeroFlag(zeroFlag),
@@ -29,7 +30,17 @@ module ALU_Testbench;
     initial begin
 
         $monitor("%d  -   Result = %d  %b", $time, result, result);
+
+        // Test case 0: ADD operation
+        enable=0;
+        operandA = 32'd30;
+        operandB = 32'd10;
+        aluOp = 4'b0000; // ADD_OP
+        shiftAmount = 0;
+        #10; // Wait for a few simulation cycles
+
         // Test case 1: ADD operation
+        enable=1;
         operandA = 32'd30;
         operandB = 32'd10;
         aluOp = 4'b0000; // ADD_OP
