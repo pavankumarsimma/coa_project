@@ -31,7 +31,7 @@ module ALU_Testbench;
 
         $monitor("%d  -   Result = %d  %b", $time, result, result);
 
-        // Test case 0: ADD operation
+        // Test case 0: ADD operation  with enable off
         enable=0;
         operandA = 32'd30;
         operandB = 32'd10;
@@ -103,6 +103,15 @@ module ALU_Testbench;
         operandB = 32'd3;
         aluOp = 4'b1000; 
         shiftAmount = 1;
+        #10; // Wait for a few simulation cycles
+
+        // Test case 10: ADD operation
+        enable=1;
+        operandA = 32'd30;
+        operandB = 32'd70;
+        aluOp = 4'b0000; // ADD_OP
+        shiftAmount = 0;
+        
         #100;
         
         
